@@ -1,0 +1,516 @@
+-- ----------------------------------------------------------------------------
+-- MySQL Workbench Migration
+-- Migrated Schemata: IAL
+-- Source Schemata: IAL
+-- Created: Tue Dec 19 15:58:30 2017
+-- ----------------------------------------------------------------------------
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------------------------------------------------------
+-- Schema IAL
+-- ----------------------------------------------------------------------------
+DROP SCHEMA IF EXISTS `IAL` ;
+CREATE SCHEMA IF NOT EXISTS `IAL` ;
+
+-- ----------------------------------------------------------------------------
+-- Table IAL.IAL_Candidate
+-- ----------------------------------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `IAL`.`IAL_Candidate` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `employeeId` VARCHAR(45) NULL DEFAULT NULL ,
+  `firstName` VARCHAR(45) NULL DEFAULT NULL ,
+  `lastName` VARCHAR(45) NULL DEFAULT NULL ,
+  `username` VARCHAR(45) NULL DEFAULT NULL ,
+  `emailId` VARCHAR(150) NULL DEFAULT NULL ,
+  `candidateKCId` INT(11) NULL DEFAULT NULL ,
+  `profilePicDocId` INT(11) NULL DEFAULT NULL ,
+  `isEvaluator` TINYINT(1) NULL DEFAULT NULL ,
+  `isAdministrator` TINYINT(1) NULL DEFAULT NULL ,
+  `isActive` TINYINT(1) NULL DEFAULT NULL ,
+  `createdOn` DATETIME NULL DEFAULT NULL ,
+  `createdBy` VARCHAR(45) NULL DEFAULT NULL ,
+  `updatedOn` DATETIME NULL DEFAULT NULL ,
+  `updatedBy` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 67
+DEFAULT CHARACTER SET = utf8;
+
+-- ----------------------------------------------------------------------------
+-- Table IAL.IAL_Candidate_Question
+-- ----------------------------------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `IAL`.`IAL_Candidate_Question` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `candidateId` INT(11) NULL DEFAULT NULL ,
+  `questionId` INT(11) NULL DEFAULT NULL ,
+  `questionStatusId` INT(11) NULL DEFAULT NULL ,
+  `processId` VARCHAR(45) NULL DEFAULT NULL ,
+  `createdOn` DATETIME NULL DEFAULT NULL ,
+  `createdBy` VARCHAR(45) NULL DEFAULT NULL ,
+  `updatedOn` DATETIME NULL DEFAULT NULL ,
+  `updatedBy` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 454
+DEFAULT CHARACTER SET = utf8;
+
+-- ----------------------------------------------------------------------------
+-- Table IAL.IAL_Category
+-- ----------------------------------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `IAL`.`IAL_Category` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `categoryName` VARCHAR(45) NULL DEFAULT NULL ,
+  `categoryDescription` VARCHAR(150) NULL DEFAULT NULL ,
+  `totalWeightage` INT(11) NULL DEFAULT NULL ,
+  `categoryIconDocId` INT(11) NULL DEFAULT NULL ,
+  `isActive` TINYINT(1) NULL DEFAULT NULL ,
+  `createdOn` DATETIME NULL DEFAULT NULL ,
+  `createdBy` VARCHAR(45) NULL DEFAULT NULL ,
+  `updatedOn` DATETIME NULL DEFAULT NULL ,
+  `updatedBy` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 4
+DEFAULT CHARACTER SET = utf8;
+
+-- ----------------------------------------------------------------------------
+-- Table IAL.IAL_Entity_Audit
+-- ----------------------------------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `IAL`.`IAL_Entity_Audit` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `entityId` INT(11) NULL DEFAULT NULL ,
+  `entryId` INT(11) NULL DEFAULT NULL ,
+  `entryName` VARCHAR(45) NULL DEFAULT NULL ,
+  `actionTaken` VARCHAR(45) NULL DEFAULT NULL ,
+  `properties` VARCHAR(255) NULL DEFAULT NULL ,
+  `actionTakenOn` DATETIME NULL DEFAULT NULL ,
+  `actionPerformedBy` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 172
+DEFAULT CHARACTER SET = utf8;
+
+-- ----------------------------------------------------------------------------
+-- Table IAL.IAL_Entity_Lookup
+-- ----------------------------------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `IAL`.`IAL_Entity_Lookup` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `entityName` VARCHAR(45) NULL DEFAULT NULL ,
+  `isActive` TINYINT(1) NULL DEFAULT NULL ,
+  `createdOn` DATETIME NULL DEFAULT NULL ,
+  `createdBy` VARCHAR(45) NULL DEFAULT NULL ,
+  `updatedOn` DATETIME NULL DEFAULT NULL ,
+  `updatedBy` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 10
+DEFAULT CHARACTER SET = utf8;
+
+-- ----------------------------------------------------------------------------
+-- Table IAL.IAL_Evaluator
+-- ----------------------------------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `IAL`.`IAL_Evaluator` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `candidateId` INT(11) NULL DEFAULT NULL ,
+  `isActive` TINYINT(1) NULL DEFAULT NULL ,
+  `createdOn` DATETIME NULL DEFAULT NULL ,
+  `createdBy` VARCHAR(45) NULL DEFAULT NULL ,
+  `updatedOn` DATETIME NULL DEFAULT NULL ,
+  `updatedBy` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 29
+DEFAULT CHARACTER SET = utf8;
+
+-- ----------------------------------------------------------------------------
+-- Table IAL.IAL_Question
+-- ----------------------------------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `IAL`.`IAL_Question` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `questionCode` VARCHAR(45) NULL DEFAULT NULL ,
+  `questionName` VARCHAR(150) NULL DEFAULT NULL ,
+  `questionDescription` VARCHAR(150) NULL DEFAULT NULL ,
+  `questionDocumetId` INT(11) NULL DEFAULT NULL ,
+  `questionDocumentName` VARCHAR(150) NULL DEFAULT NULL ,
+  `evaluationTimeInHours` DOUBLE NULL DEFAULT NULL ,
+  `topicId` INT(11) NULL DEFAULT NULL ,
+  `categoryId` INT(11) NULL DEFAULT NULL ,
+  `startDate` DATETIME NULL DEFAULT NULL ,
+  `endDate` DATETIME NULL DEFAULT NULL ,
+  `questionComplexityId` INT(11) NULL DEFAULT NULL ,
+  `weightage` INT(11) NULL DEFAULT NULL ,
+  `relevancePoints` INT(11) NULL DEFAULT NULL ,
+  `isActive` TINYINT(1) NULL DEFAULT NULL ,
+  `createdOn` DATETIME NULL DEFAULT NULL ,
+  `createdBy` VARCHAR(45) NULL DEFAULT NULL ,
+  `updatedOn` DATETIME NULL DEFAULT NULL ,
+  `updatedBy` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 38
+DEFAULT CHARACTER SET = utf8;
+
+-- ----------------------------------------------------------------------------
+-- Table IAL.IAL_Question_Evaluation
+-- ----------------------------------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `IAL`.`IAL_Question_Evaluation` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `questionSolutionId` INT(11) NULL DEFAULT NULL ,
+  `evaluatorId` INT(11) NULL DEFAULT NULL ,
+  `marksGiven` INT(11) NULL DEFAULT NULL ,
+  `feedback` VARCHAR(2000) NULL DEFAULT NULL ,
+  `evaluationStartDate` DATETIME NULL DEFAULT NULL ,
+  `evaluationEndDate` DATETIME NULL DEFAULT NULL ,
+  `questionEvaluationStatusId` INT(11) NULL DEFAULT NULL ,
+  `processId` VARCHAR(45) NULL DEFAULT NULL ,
+  `createdOn` DATETIME NULL DEFAULT NULL ,
+  `createdBy` VARCHAR(45) NULL DEFAULT NULL ,
+  `updatedOn` DATETIME NULL DEFAULT NULL ,
+  `updatedBy` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 95
+DEFAULT CHARACTER SET = utf8;
+
+-- ----------------------------------------------------------------------------
+-- Table IAL.IAL_Question_Prerequisite
+-- ----------------------------------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `IAL`.`IAL_Question_Prerequisite` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `questionId` INT(11) NULL DEFAULT NULL ,
+  `prerequisiteQuestionId` INT(11) NULL DEFAULT NULL ,
+  `isMandatoryPrerequisite` TINYINT(1) NULL DEFAULT NULL ,
+  `isActive` TINYINT(1) NULL DEFAULT NULL ,
+  `createdOn` DATETIME NULL DEFAULT NULL ,
+  `createdBy` VARCHAR(45) NULL DEFAULT NULL ,
+  `updatedOn` DATETIME NULL DEFAULT NULL ,
+  `updatedBy` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+-- ----------------------------------------------------------------------------
+-- Table IAL.IAL_Question_Solution
+-- ----------------------------------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `IAL`.`IAL_Question_Solution` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `candidateQuestionId` INT(11) NULL DEFAULT NULL ,
+  `employeeId` VARCHAR(255) NULL DEFAULT NULL ,
+  `username` VARCHAR(45) NULL DEFAULT NULL ,
+  `password` VARCHAR(45) NULL DEFAULT NULL ,
+  `solutionPatchId` INT(11) NULL DEFAULT NULL ,
+  `comments` VARCHAR(255) NULL DEFAULT NULL ,
+  `submissionDate` DATETIME NULL DEFAULT NULL ,
+  `processId` VARCHAR(45) NULL DEFAULT NULL ,
+  `createdOn` DATETIME NULL DEFAULT NULL ,
+  `createdBy` VARCHAR(45) NULL DEFAULT NULL ,
+  `updatedOn` DATETIME NULL DEFAULT NULL ,
+  `updatedBy` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 429
+DEFAULT CHARACTER SET = utf8;
+
+-- ----------------------------------------------------------------------------
+-- Table IAL.IAL_Status_Lookup
+-- ----------------------------------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `IAL`.`IAL_Status_Lookup` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `entityId` INT(11) NULL DEFAULT NULL ,
+  `statusName` VARCHAR(45) NULL DEFAULT NULL ,
+  `isActive` TINYINT(1) NULL DEFAULT NULL ,
+  `createdOn` DATETIME NULL DEFAULT NULL ,
+  `createdBy` VARCHAR(45) NULL DEFAULT NULL ,
+  `updatedOn` DATETIME NULL DEFAULT NULL ,
+  `updatedBy` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 9
+DEFAULT CHARACTER SET = utf8;
+
+-- ----------------------------------------------------------------------------
+-- Table IAL.IAL_Topic_Lookup
+-- ----------------------------------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `IAL`.`IAL_Topic_Lookup` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `topicName` VARCHAR(45) NULL DEFAULT NULL ,
+  `topicCode` VARCHAR(45) NULL DEFAULT NULL ,
+  `isActive` TINYINT(1) NULL DEFAULT NULL ,
+  `createdOn` DATETIME NULL DEFAULT NULL ,
+  `createdBy` VARCHAR(45) NULL DEFAULT NULL ,
+  `updatedOn` DATETIME NULL DEFAULT NULL ,
+  `updatedBy` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`id`) )
+ENGINE = InnoDB
+AUTO_INCREMENT = 12
+DEFAULT CHARACTER SET = utf8;
+
+
+
+
+
+
+
+-- ----------------------------------------------------------------------------
+-- Routine IAL.IAL_getCandidateQuestionDetails
+-- ----------------------------------------------------------------------------
+DELIMITER $$
+
+DELIMITER $$
+USE `IAL`$$
+CREATE DEFINER=`root`@`172.20.0.128` PROCEDURE `IAL_getCandidateQuestionDetails`(IN fromDate datetime, IN toDate datetime)
+BEGIN
+
+    SELECT 
+        `candidate`.`id` AS `candidateId`,
+        `candidate`.`employeeId` AS `employeeId`,
+        `candidate`.`username` AS `userName`,
+        CONCAT(`candidate`.`firstName`,' ',`candidate`.`lastName`) AS `fullName`,
+        `candidate`.`emailId` AS `emailId`,
+        CAST(
+		(
+		SELECT 
+                    COUNT(0)
+                FROM
+                    `IAL`.`IAL_Question`
+                WHERE
+                    (`IAL`.`IAL_Question`.`isActive` = TRUE)
+					)
+            AS DECIMAL (10 , 0 )
+			) AS `totalQuestions`,
+        CAST(
+		(
+		SELECT 
+                    COUNT(0)
+                FROM
+                    `IAL`.`IAL_Candidate_Question` as `ICQ`
+					JOIN IAL.IAL_Question_Solution as `IQS` on `ICQ`.`id`=`IQS`.`candidateQuestionId`
+                WHERE
+                    (`IAL`.`ICQ`.`candidateId` = `candidate`.`id` and `IQS`.`submissionDate` BETWEEN '2016-01-01' AND '2017-01-17')
+					)
+            AS DECIMAL (10 , 0 )
+			) AS `submitedQuestions`,
+        `IAL`.`totalQuestionsSubmitedBasedOnCandidate`(`candidate`.`id`,'2016-01-01','2017-01-17') AS `evaluatedQuestions`,
+        `IAL`.`totalScoreAchivedBasedOnCandidate`(`candidate`.`id`,'2016-01-01','2017-01-17') AS `achivedScore`
+    FROM
+        `IAL`.`IAL_Candidate` `candidate`
+    WHERE
+        ((`candidate`.`isActive` = TRUE)
+            AND (`candidate`.`isEvaluator` = FALSE)
+            AND (`candidate`.`isAdministrator` = FALSE));
+END$$
+
+DELIMITER ;
+
+-- ----------------------------------------------------------------------------
+-- Routine IAL.test_proce
+-- ----------------------------------------------------------------------------
+DELIMITER $$
+
+DELIMITER $$
+USE `IAL`$$
+CREATE DEFINER=`root`@`172.20.0.128` PROCEDURE `test_proce`(INOUT fvalue INT)
+BEGIN
+select 143 into fvalue from dual; 
+END$$
+
+DELIMITER ;
+
+-- ----------------------------------------------------------------------------
+-- Routine IAL.GETCOUNTOFSUBMITEDQUESTIONS
+-- ----------------------------------------------------------------------------
+DELIMITER $$
+
+DELIMITER $$
+USE `IAL`$$
+CREATE DEFINER=`root`@`172.18.4.59` FUNCTION `GETCOUNTOFSUBMITEDQUESTIONS`(categoryId int, candidateId int) RETURNS int(11)
+BEGIN
+return (select count(distinct(cquestion.questionId))
+FROM 
+IAL_Question question,
+IAL_Candidate_Question cquestion
+where question.categoryId = categoryId 
+and question.isActive = true
+and cquestion.candidateId = candidateId
+and cquestion.questionStatusId = 7
+and cquestion.questionId = question.id);
+END$$
+
+DELIMITER ;
+
+-- ----------------------------------------------------------------------------
+-- Routine IAL.GETTOTALNOOFQUESTIONSFORCATEGORY
+-- ----------------------------------------------------------------------------
+DELIMITER $$
+
+DELIMITER $$
+USE `IAL`$$
+CREATE DEFINER=`root`@`il-0617.incess.local` FUNCTION `GETTOTALNOOFQUESTIONSFORCATEGORY`(categoryId int) RETURNS int(11)
+BEGIN
+
+RETURN (select count(distinct(question.id)) from IAL_Question question
+where question.categoryId = categoryId);
+END$$
+
+DELIMITER ;
+
+-- ----------------------------------------------------------------------------
+-- Routine IAL.GETTOTALOFSUBMITEDQUESTIONSWEIGHTAGE
+-- ----------------------------------------------------------------------------
+DELIMITER $$
+
+DELIMITER $$
+USE `IAL`$$
+CREATE DEFINER=`root`@`il-0617.incess.local` FUNCTION `GETTOTALOFSUBMITEDQUESTIONSWEIGHTAGE`(categoryId int, candidateId int) RETURNS int(11)
+BEGIN
+RETURN (select
+sum(individualScore)+0 as totalScoreAchived
+from 
+(SELECT 
+ 	question.id as questionId,
+    max(evaluation.id) as evaluationId,
+    max(evaluation.marksGiven) as individualScore    
+FROM
+    IAL_Question question,
+    IAL_Candidate_Question cquestion,
+    IAL_Question_Solution solution,
+    IAL_Question_Evaluation evaluation
+WHERE
+    question.categoryId = categoryId
+        AND question.isActive = TRUE
+        AND cquestion.candidateId = candidateId
+        AND cquestion.questionStatusId = 7
+        AND cquestion.questionId = question.id
+        AND solution.candidateQuestionId = cquestion.id
+        AND evaluation.questionSolutionId = solution.id
+group by question.id) as individualScoreData
+);
+END$$
+
+DELIMITER ;
+
+-- ----------------------------------------------------------------------------
+-- Routine IAL.GETTOTALWEIGHTAGEOFCATEGORY
+-- ----------------------------------------------------------------------------
+DELIMITER $$
+
+DELIMITER $$
+USE `IAL`$$
+CREATE DEFINER=`root`@`il-0617.incess.local` FUNCTION `GETTOTALWEIGHTAGEOFCATEGORY`(categoryId int) RETURNS int(11)
+BEGIN
+
+RETURN (
+select sum(question.weightage)+0
+FROM 
+IAL_Question question
+where question.categoryId = categoryId
+);
+END$$
+
+DELIMITER ;
+
+-- ----------------------------------------------------------------------------
+-- Routine IAL.SETROWNUMBER
+-- ----------------------------------------------------------------------------
+DELIMITER $$
+
+DELIMITER $$
+USE `IAL`$$
+CREATE DEFINER=`root`@`il-0617.incess.local` FUNCTION `SETROWNUMBER`(startFrom INTEGER) RETURNS int(11)
+BEGIN
+SET @varone := IF(startFrom = 0, -1 ,@varone);
+SET @varone := IF(ISNULL(@varone),0,@varone)+1;
+  return @varone;
+END$$
+
+DELIMITER ;
+
+-- ----------------------------------------------------------------------------
+-- Routine IAL.totalQuestionsSubmitedBasedOnCandidate
+-- ----------------------------------------------------------------------------
+DELIMITER $$
+
+DELIMITER $$
+USE `IAL`$$
+CREATE DEFINER=`root`@`172.18.4.59` FUNCTION `totalQuestionsSubmitedBasedOnCandidate`(candidateId int,fromDate datetime,toDate datetime) RETURNS int(11)
+BEGIN
+
+RETURN (SELECT 
+                COUNT(DISTINCT `evaluation`.`id`)
+    FROM
+	
+	IAL_Question_Evaluation evaluation
+	JOIN IAL_Question_Solution solution on evaluation.questionSolutionId = solution.id
+	JOIN IAL_Candidate_Question cquestion on solution.candidateQuestionId = cquestion.id AND cquestion.questionStatusId = 7 AND cquestion.candidateId = candidateId
+	JOIN IAL_Question question on cquestion.questionId = question.id AND question.isActive = TRUE
+	WHERE
+    evaluation.evaluationEndDate>=fromDate AND evaluation.evaluationEndDate<=toDate);
+END$$
+
+DELIMITER ;
+
+-- ----------------------------------------------------------------------------
+-- Routine IAL.totalScoreAchivedBasedOnCandidate
+-- ----------------------------------------------------------------------------
+DELIMITER $$
+
+DELIMITER $$
+USE `IAL`$$
+CREATE DEFINER=`root`@`172.18.4.59` FUNCTION `totalScoreAchivedBasedOnCandidate`(candidateId int,fromDate datetime,toDate datetime) RETURNS int(11)
+BEGIN
+RETURN (select
+if(isnull(sum(individualScore)),0,sum(individualScore)) as totalScoreAchived
+from 
+(SELECT 
+ 	question.id as questionId,
+    max(evaluation.id) as evaluationId,
+    max(evaluation.marksGiven) as individualScore    
+FROM
+    IAL_Question question,
+    IAL_Candidate_Question cquestion,
+    IAL_Question_Solution solution,
+    IAL_Question_Evaluation evaluation
+WHERE
+        question.isActive = TRUE
+        AND cquestion.candidateId = candidateId
+        AND cquestion.questionStatusId = 7
+        AND cquestion.questionId = question.id
+        AND solution.candidateQuestionId = cquestion.id
+        AND evaluation.questionSolutionId = solution.id
+		AND evaluation.evaluationEndDate>=fromDate AND evaluation.evaluationEndDate<=toDate
+group by question.id) as individualScoreData);
+END$$
+
+
+
+
+
+
+
+
+
+
+
+-- ----------------------------------------------------------------------------
+-- View IAL.IAL_View_Candidate_Category
+-- ----------------------------------------------------------------------------
+USE `IAL`;
+CREATE  OR REPLACE ALGORITHM=UNDEFINED  VIEW `IAL`.`IAL_View_Candidate_Category` AS select `category`.`id` AS `id`,`cquestion`.`candidateId` AS `candidateId`,`category`.`categoryName` AS `categoryName`,concat(cast(`GETCOUNTOFSUBMITEDQUESTIONS`(`category`.`id`,`cquestion`.`candidateId`) as signed),' / ',cast(`GETTOTALNOOFQUESTIONSFORCATEGORY`(`category`.`id`) as signed)) AS `questionsSubmited`,concat(cast(if(isnull(`GETTOTALOFSUBMITEDQUESTIONSWEIGHTAGE`(`category`.`id`,`cquestion`.`candidateId`)),0,`GETTOTALOFSUBMITEDQUESTIONSWEIGHTAGE`(`category`.`id`,`cquestion`.`candidateId`)) as signed),' / ',concat(cast(if(isnull(`GETTOTALWEIGHTAGEOFCATEGORY`(`category`.`id`)),0,`GETTOTALWEIGHTAGEOFCATEGORY`(`category`.`id`)) as signed))) AS `weightageSubmited` from ((`IAL`.`IAL_Category` `category` left join `IAL`.`IAL_Question` `question` on(((`category`.`id` = `question`.`categoryId`) and (`category`.`isActive` = TRUE) and (`question`.`isActive` = TRUE)))) join `IAL`.`IAL_Candidate_Question` `cquestion`) group by `category`.`id`,`category`.`categoryName`,`cquestion`.`candidateId` union select `category`.`id` AS `id`,NULL AS `candidateId`,`category`.`categoryName` AS `categoryName`,concat(cast(`GETCOUNTOFSUBMITEDQUESTIONS`(`category`.`id`,NULL) as signed),' / ',cast(`GETTOTALNOOFQUESTIONSFORCATEGORY`(`category`.`id`) as signed)) AS `questionsSubmited`,concat(cast(if(isnull(`GETTOTALOFSUBMITEDQUESTIONSWEIGHTAGE`(`category`.`id`,NULL)),0,`GETTOTALOFSUBMITEDQUESTIONSWEIGHTAGE`(`category`.`id`,NULL)) as signed),' / ',concat(cast(if(isnull(`GETTOTALWEIGHTAGEOFCATEGORY`(`category`.`id`)),0,`GETTOTALWEIGHTAGEOFCATEGORY`(`category`.`id`)) as signed))) AS `weightageSubmited` from (`IAL`.`IAL_Category` `category` left join `IAL`.`IAL_Question` `question` on(((`category`.`id` = `question`.`categoryId`) and (`category`.`isActive` = TRUE) and (`question`.`isActive` = TRUE)))) group by `category`.`id`,`category`.`categoryName`;
+
+-- ----------------------------------------------------------------------------
+-- View IAL.IAL_View_Candidate_Question_Score
+-- ----------------------------------------------------------------------------
+USE `IAL`;
+CREATE  OR REPLACE ALGORITHM=UNDEFINED  VIEW `IAL`.`IAL_View_Candidate_Question_Score` AS (select `IAL`.`SETROWNUMBER`(1) AS `id`,`questionCandidate`.`candidateId` AS `candidateId`,`questionCandidate`.`questionId` AS `questionId`,`questionCandidate`.`questionCode` AS `questionCode`,`questionCandidate`.`questionName` AS `questionName`,`questionCandidate`.`questionDescription` AS `questionDescription`,`questionCandidate`.`questionDocumetId` AS `questionDocumetId`,`questionCandidate`.`questionDocumentName` AS `questionDocumentName`,`questionCandidate`.`evaluationTimeInHours` AS `evaluationTimeInHours`,`questionCandidate`.`questionStatus` AS `questionStatus`,`questionCandidate`.`categoryName` AS `categoryName`,`questionCandidate`.`startDate` AS `questionStartDate`,`questionCandidate`.`endDate` AS `questionEndDate`,`questionCandidate`.`topicName` AS `topicName`,`questionCandidate`.`weightage` AS `weightage`,`questionCandidate`.`relevancePoints` AS `relevancePoints`,`questionCandidate`.`isQuestionActive` AS `isQuestionActive`,`questionCandidate`.`questionCreatedOn` AS `questionCreatedOn`,`questionCandidate`.`questionCreatedBy` AS `questionCreatedBy`,`questionCandidate`.`questionUpdatedOn` AS `questionUpdatedOn`,`questionCandidate`.`questionUpdatedBy` AS `questionUpdatedBy`,`questionCandidate`.`candidateQuestionId` AS `candidateQuestionId`,`solutions`.`id` AS `questionSolutionId`,`evaluation`.`id` AS `questionEvaluationId`,`evaluation`.`marksGiven` AS `evaluationScore`,`evaluation`.`feedback` AS `evaluationFeedback`,`evaluation`.`evaluationStartDate` AS `evaluationStartDate`,`evaluation`.`evaluationEndDate` AS `evaluationEndDate`,`eStatus`.`statusName` AS `evaluationStatus`,`cqStatus`.`statusName` AS `questionSolutionStatus` from (((((select `IAL`.`SETROWNUMBER`(0) AS `resetRowNumber`)) `rowNumber` join (((((select `candidate`.`id` AS `candidateId`,`questions`.`id` AS `questionId`,`questions`.`questionCode` AS `questionCode`,`questions`.`questionName` AS `questionName`,`questions`.`questionDescription` AS `questionDescription`,`questions`.`questionDocumetId` AS `questionDocumetId`,`questions`.`questionDocumentName` AS `questionDocumentName`,`questions`.`evaluationTimeInHours` AS `evaluationTimeInHours`,`qStatus`.`statusName` AS `questionStatus`,`category`.`categoryName` AS `categoryName`,`questions`.`startDate` AS `startDate`,`questions`.`endDate` AS `endDate`,`topics`.`topicName` AS `topicName`,`questions`.`weightage` AS `weightage`,`questions`.`relevancePoints` AS `relevancePoints`,`questions`.`isActive` AS `isQuestionActive`,`questions`.`createdOn` AS `questionCreatedOn`,`questions`.`createdBy` AS `questionCreatedBy`,`questions`.`updatedOn` AS `questionUpdatedOn`,`questions`.`updatedBy` AS `questionUpdatedBy`,max(`cQuestion`.`id`) AS `candidateQuestionId` from (((`IAL`.`IAL_Candidate` `candidate` join ((`IAL`.`IAL_Question` `questions` join `IAL`.`IAL_Category` `category` on((`questions`.`categoryId` = `category`.`id`))) join `IAL`.`IAL_Topic_Lookup` `topics` on((`questions`.`topicId` = `topics`.`id`)))) join `IAL`.`IAL_Status_Lookup` `qStatus` on((`qStatus`.`id` = `questions`.`questionComplexityId`))) left join `IAL`.`IAL_Candidate_Question` `cQuestion` on(((`cQuestion`.`questionId` = `questions`.`id`) and (`cQuestion`.`candidateId` = `candidate`.`id`)))) group by `candidate`.`id`,`questions`.`id`)) `questionCandidate` left join `IAL`.`IAL_Question_Solution` `solutions` on((`solutions`.`candidateQuestionId` = `questionCandidate`.`candidateQuestionId`))) left join `IAL`.`IAL_Question_Evaluation` `evaluation` on((`evaluation`.`questionSolutionId` = `solutions`.`id`))) left join `IAL`.`IAL_Status_Lookup` `eStatus` on((`eStatus`.`id` = `evaluation`.`questionEvaluationStatusId`)))) left join `IAL`.`IAL_Candidate_Question` `cQuestion2` on((`cQuestion2`.`id` = `questionCandidate`.`candidateQuestionId`))) left join `IAL`.`IAL_Status_Lookup` `cqStatus` on((`cqStatus`.`id` = `cQuestion2`.`questionStatusId`))));
+
+-- ----------------------------------------------------------------------------
+-- View IAL.IAL_View_Question
+-- ----------------------------------------------------------------------------
+USE `IAL`;
+CREATE  OR REPLACE ALGORITHM=UNDEFINED  VIEW `IAL`.`IAL_View_Question` AS select `question`.`id` AS `questionId`,`question`.`questionCode` AS `questionCode`,`question`.`questionName` AS `questionName`,`question`.`questionDescription` AS `questionDescription`,`question`.`questionDocumetId` AS `questionDocumentId`,`question`.`questionDocumentName` AS `questionDocumentName`,`question`.`evaluationTimeInHours` AS `evaluationTimeInHours`,`question`.`categoryId` AS `categoryId`,`question`.`startDate` AS `startDate`,`question`.`endDate` AS `endDate`,`question`.`topicId` AS `topicId`,`question`.`questionComplexityId` AS `questionComplexityId`,`question`.`weightage` AS `weightage`,`question`.`relevancePoints` AS `relevancePoints`,`question`.`isActive` AS `isActive`,`question`.`createdOn` AS `createdOn`,`question`.`createdBy` AS `createdBy`,`question`.`updatedOn` AS `updatedOn`,`question`.`updatedBy` AS `updatedBy`,`category`.`categoryName` AS `categoryName`,`topic`.`topicName` AS `topicName`,`qStatus`.`statusName` AS `questionComplexity` from (((`IAL`.`IAL_Question` `question` join `IAL`.`IAL_Category` `category` on((`question`.`categoryId` = `category`.`id`))) join `IAL`.`IAL_Topic_Lookup` `topic` on((`question`.`topicId` = `topic`.`id`))) join `IAL`.`IAL_Status_Lookup` `qStatus` on((`question`.`questionComplexityId` = `qStatus`.`id`)));
+
+
+
+DELIMITER ;
+SET FOREIGN_KEY_CHECKS = 1;;
